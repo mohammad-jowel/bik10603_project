@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d2" for="edge" attr.name="weight" attr.type="long" />
+  <key id="d1" for="node" attr.name="y" attr.type="double" />
+  <key id="d0" for="node" attr.name="x" attr.type="double" />
+  <graph edgedefault="directed">
+    <node id="Rotterdam">
+      <data key="d0">498455.283925041</data>
+      <data key="d1">6786467.53064413</data>
+    </node>
+    <node id="The Hague">
+      <data key="d0">478751.73405463167</data>
+      <data key="d1">6812882.810306385</data>
+    </node>
+    <node id="Amsterdam">
+      <data key="d0">545921.9147992929</data>
+      <data key="d1">6866867.121983132</data>
+    </node>
+    <node id="Utrecht">
+      <data key="d0">570111.6401486712</data>
+      <data key="d1">6816541.8212698875</data>
+    </node>
+    <node id="Almere">
+      <data key="d0">581488.4921077439</data>
+      <data key="d1">6867632.875956589</data>
+    </node>
+    <node id="Veenendaal">
+      <data key="d0">618446.5630511106</data>
+      <data key="d1">6805406.911871877</data>
+    </node>
+    <node id="Arnhem">
+      <data key="d0">656640.2803422828</data>
+      <data key="d1">6797431.791543091</data>
+    </node>
+    <node id="'s-Hertogenbosch">
+      <data key="d0">590460.8430656816</data>
+      <data key="d1">6745667.181691698</data>
+    </node>
+    <node id="Breda">
+      <data key="d0">531661.8880286745</data>
+      <data key="d1">6723086.561644187</data>
+    </node>
+    <node id="Tilburg">
+      <data key="d0">565202.4506046879</data>
+      <data key="d1">6721062.926794686</data>
+    </node>
+    <node id="Eindhoven">
+      <data key="d0">609763.6427692353</data>
+      <data key="d1">6699782.5451415535</data>
+    </node>
+    <node id="Leeuwarden">
+      <data key="d0">644773.6226237199</data>
+      <data key="d1">7020301.537644326</data>
+    </node>
+    <node id="Meppel">
+      <data key="d0">689201.2313993153</data>
+      <data key="d1">6926632.306217987</data>
+    </node>
+    <node id="Zwolle">
+      <data key="d0">677156.4624954831</data>
+      <data key="d1">6894114.397016918</data>
+    </node>
+    <node id="Groningen">
+      <data key="d0">730979.4362940309</data>
+      <data key="d1">7023684.545895997</data>
+    </node>
+    <edge source="Rotterdam" target="The Hague">
+      <data key="d2">26</data>
+    </edge>
+    <edge source="Rotterdam" target="Breda">
+      <data key="d2">48</data>
+    </edge>
+    <edge source="Rotterdam" target="Utrecht">
+      <data key="d2">62</data>
+    </edge>
+    <edge source="The Hague" target="Amsterdam">
+      <data key="d2">65</data>
+    </edge>
+    <edge source="Amsterdam" target="Almere">
+      <data key="d2">30</data>
+    </edge>
+    <edge source="Utrecht" target="Amsterdam">
+      <data key="d2">45</data>
+    </edge>
+    <edge source="Utrecht" target="Veenendaal">
+      <data key="d2">33</data>
+    </edge>
+    <edge source="Almere" target="Zwolle">
+      <data key="d2">75</data>
+    </edge>
+    <edge source="Veenendaal" target="Arnhem">
+      <data key="d2">30</data>
+    </edge>
+    <edge source="Arnhem" target="Zwolle">
+      <data key="d2">80</data>
+    </edge>
+    <edge source="'s-Hertogenbosch" target="Utrecht">
+      <data key="d2">50</data>
+    </edge>
+    <edge source="'s-Hertogenbosch" target="Arnhem">
+      <data key="d2">65</data>
+    </edge>
+    <edge source="Breda" target="Tilburg">
+      <data key="d2">25</data>
+    </edge>
+    <edge source="Tilburg" target="Eindhoven">
+      <data key="d2">35</data>
+    </edge>
+    <edge source="Tilburg" target="'s-Hertogenbosch">
+      <data key="d2">25</data>
+    </edge>
+    <edge source="Eindhoven" target="'s-Hertogenbosch">
+      <data key="d2">33</data>
+    </edge>
+    <edge source="Leeuwarden" target="Groningen">
+      <data key="d2">60</data>
+    </edge>
+    <edge source="Meppel" target="Leeuwarden">
+      <data key="d2">60</data>
+    </edge>
+    <edge source="Meppel" target="Groningen">
+      <data key="d2">75</data>
+    </edge>
+    <edge source="Zwolle" target="Meppel">
+      <data key="d2">28</data>
+    </edge>
+  </graph>
+</graphml>
