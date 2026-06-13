@@ -72,18 +72,18 @@ for u, v in solved_path_edges:
     cache_key = f"{u}->{v}"
     if cache_key in road_geometries_cache:
         pts = road_geometries_cache[cache_key]
-        ax.plot([p[0] for p in pts], [p[1] for p in pts], color='#ff2e63', linewidth=5.5, alpha=1.0, zorder=2)
+        ax.plot([p[0] for p in pts], [p[1] for p in pts], color='#00e5ff', linewidth=4.0, alpha=1.0, zorder=2)
         mid_idx = len(pts) // 2
         ax.annotate('', xy=(pts[mid_idx+1][0], pts[mid_idx+1][1]), 
                     xytext=(pts[mid_idx][0], pts[mid_idx][1]),
-                    arrowprops=dict(arrowstyle="-|>", color='#ff2e63', lw=0, mutation_scale=15), zorder=2)
+                    arrowprops=dict(arrowstyle="-|>", color='#00e5ff', lw=0, mutation_scale=15), zorder=2)
     else:
-        ax.plot([pos[u][0], pos[v][0]], [pos[u][1], pos[v][1]], color='#ff2e63', linewidth=5.0, zorder=2)
+        ax.plot([pos[u][0], pos[v][0]], [pos[u][1], pos[v][1]], color='#00e5ff', linewidth=3.5, zorder=2)
 
 # Nodes
 for node in G.nodes():
     is_on_path = node in shortest_path_nodes
-    n_color = '#ff2e63' if is_on_path else '#00f2fe'
+    n_color = '#00e5ff' if is_on_path else '#00f2fe'
     n_size = 140 if is_on_path else 80
     ax.scatter(pos[node][0], pos[node][1], color=n_color, s=n_size, alpha=1.0, edgecolors='white', linewidths=0.5, zorder=3)
 
@@ -91,8 +91,8 @@ for node in G.nodes():
 for node, (x, y) in pos.items():
     is_on_path = node in shortest_path_nodes
     ax.text(x, y + 6800, s=node, color='#ffffff', fontsize=8.5, fontweight='bold',
-            bbox=dict(facecolor='#ff2e63' if is_on_path else '#111827', 
-                      edgecolor='#ff2e63' if is_on_path else '#00f2fe', 
+            bbox=dict(facecolor='#00e5ff' if is_on_path else '#111827', 
+                      edgecolor='#00e5ff' if is_on_path else '#00f2fe', 
                       boxstyle='round,pad=0.3', alpha=0.95),
             horizontalalignment='center', zorder=4)
 
