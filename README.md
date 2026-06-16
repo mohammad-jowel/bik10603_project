@@ -64,7 +64,3 @@ Calculates the optimal route and outputs `shortest_path.png`.
 ### Dijkstra Shortest Path Analysis
 ![Shortest Path](shortest_path.png)
 *The cyan line indicates the shortest path calculated by the Dijkstra algorithm from Rotterdam to Groningen.*
-
-### Full Infrastructure Map
-![Infrastructure Map](map_infrastructure.png)
-
