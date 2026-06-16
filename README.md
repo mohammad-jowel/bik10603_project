@@ -68,5 +68,3 @@ Calculates the optimal route and outputs `shortest_path.png`.
 ### Full Infrastructure Map
 ![Infrastructure Map](map_infrastructure.png)
 
-## License
-MIT
