@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Theory: Shortest Distance Problem - Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-logo-section">
+            <img src="assets/uthm_logo.png" alt="UTHM Logo">
+            <span class="header-title">Graph Theory: Shortest Distance</span>
+        </div>
+        <div class="header-course">BIK10603: Discrete Structure</div>
+    </header>
+
+    <!-- Presentation Viewport -->
+    <main class="presentation-container">
+
+        <!-- Slide 1: Title -->
+        <section class="slide active" id="slide-1">
+            <div class="title-slide-layout">
+                <div class="title-details fade-up-1">
+                    <div class="title-badge">
+                        <span></span> Presentation
+                    </div>
+                    <h1>Graph Theory: Shortest Distance Problem</h1>
+                    <div class="course-info">
+                        <p>Course: <strong>Discrete Structure (BIK10603)</strong></p>
+                        <p>Lecturer: <strong>Dr. Nurezayana Binti Zainal</strong></p>
+                    </div>
+                </div>
+                <div class="glass-card fade-up-2">
+                    <h3 style="margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem; color: var(--color-cyan);">Group Members</h3>
+                    <div class="members-container">
+                        <div class="member-card">
+                            <div class="member-img-wrapper">
+                                <img src="assets/AI250004.jpg" alt="MD JOWEL">
+                            </div>
+                            <div class="member-meta">
+                                <h4>MD JOWEL</h4>
+                                <span>AI250004</span>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img-wrapper">
+                                <img src="assets/AI250001.png" alt="AHMED NASHWAN AHMED AL-MASWARY">
+                            </div>
+                            <div class="member-meta">
+                                <h4>AHMED NASHWAN AHMED AL-MASWARY</h4>
+                                <span>AI250001</span>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img-wrapper">
+                                <img src="assets/AI250036.jpeg" alt="ANAS AWSAN ABDULRAZZAQ MUSAED SALLAM">
+                            </div>
+                            <div class="member-meta">
+                                <h4>ANAS AWSAN ABDULRAZZAQ MUSAED SALLAM</h4>
+                                <span>AI250036</span>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img-wrapper">
+                                <img src="assets/AI250034.jpeg" alt="AHMED HAIL SAGHEER AHMED AL-WESABI">
+                            </div>
+                            <div class="member-meta">
+                                <h4>AHMED HAIL SAGHEER AHMED AL-WESABI</h4>
+                                <span>AI250034</span>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img-wrapper">
+                                <img src="assets/AI250002.jpeg" alt="DIPTO HOWLADER">
+                            </div>
+                            <div class="member-meta">
+                                <h4>DIPTO HOWLADER</h4>
+                                <span>AI250002</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Introduction -->
+        <section class="slide" id="slide-2">
+            <div class="grid-2">
+                <div class="slide-content fade-up-1">
+                    <h2>Introduction</h2>
+                    <p style="font-size: 1.25rem; margin-bottom: 25px;">
+                        Applying discrete mathematics to model and solve optimization problems in logistics and routing.
+                    </p>
+                    <ul>
+                        <li class="fade-up-2"><strong>Graph Theory Application:</strong> Modeling real-world connectivity, bottlenecks, and routes.</li>
+                        <li class="fade-up-3"><strong>Core Focus:</strong> Finding the absolute shortest path using algorithmic computation.</li>
+                        <li class="fade-up-4"><strong>Scenario Study:</strong> The Dutch national transportation network modeled as a complex graph.</li>
+                        <li class="fade-up-4" style="margin-top: 10px;"><strong>Modern Execution:</strong> Implemented dynamically in Python for automated pathfinding operations.</li>
+                    </ul>
+                </div>
+                <div class="slide-visual fade-up-2">
+                    <div class="glass-card" style="width: 100%; text-align: center; padding: 40px;">
+                        <div style="font-size: 5rem; margin-bottom: 20px;">🇳🇱</div>
+                        <h3 style="color: var(--color-cyan); margin-bottom: 15px;">Dutch Transportation Case Study</h3>
+                        <p style="margin-bottom: 0;">We modeled 15 prominent Dutch cities and their connecting high-speed highways as vertices and weighted edges to calculate optimal travel configurations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Objectives -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2 class="fade-up-1">Project Objectives</h2>
+                <div class="cards-layout">
+                    <div class="objective-card fade-up-2">
+                        <div class="card-num">01</div>
+                        <div class="card-details">
+                            <h3>Graph Modeling</h3>
+                            <p>Represent Dutch cities as graph vertices (nodes) and high-speed highways as weighted edges with physical distances in kilometers.</p>
+                        </div>
+                    </div>
+                    <div class="objective-card fade-up-2">
+                        <div class="card-num">02</div>
+                        <div class="card-details">
+                            <h3>Graph Theory Analysis</h3>
+                            <p>Analyze structural properties of the network including graph connectivity, vertex degrees, and directed path characteristics.</p>
+                        </div>
+                    </div>
+                    <div class="objective-card fade-up-3">
+                        <div class="card-num">03</div>
+                        <div class="card-details">
+                            <h3>Algorithm Implementation</h3>
+                            <p>Build a manual, clear step-by-step Dijkstra's shortest path algorithm implementation in Python without third-party solver dependencies.</p>
+                        </div>
+                    </div>
+                    <div class="objective-card fade-up-3">
+                        <div class="card-num">04</div>
+                        <div class="card-details">
+                            <h3>Route Visualization</h3>
+                            <p>Visualize the resulting graph structure, coordinates, and shortest path using Matplotlib mapping and Contextily satellite map overlays.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Problem Background -->
+        <section class="slide" id="slide-4">
+            <div class="grid-2">
+                <div class="slide-content fade-up-1">
+                    <h2>Problem Background</h2>
+                    <ul>
+                        <li class="fade-up-2"><strong>Logistics Inefficiencies:</strong> Cargo vehicles often rely on non-optimal, static routing paths leading to delays.</li>
+                        <li class="fade-up-3"><strong>Resource Drain:</strong> Lack of mathematical routing leads to increased fuel consumption, higher operational costs, and excessive carbon emissions.</li>
+                        <li class="fade-up-4"><strong>The Network Solution:</strong> Graph theory maps raw geographical coordinates into mathematically solvable networks.</li>
+                    </ul>
+                    <div class="quote-block fade-up-4">
+                        <p>"Computer science is no more about computers than astronomy is about telescopes."</p>
+                        <cite>— Edsger W. Dijkstra (1959 Shortest Path Founder)</cite>
+                    </div>
+                </div>
+                <div class="slide-visual fade-up-2">
+                    <div class="glass-card" style="padding: 40px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+                        <span style="font-size: 2.5rem;">🚨</span>
+                        <h3 style="color: #ef4444; margin-bottom: 0;">Without Algorithmic Paths</h3>
+                        <p style="margin-bottom: 0; font-size: 0.95rem; line-height: 1.5;">Manual heuristic search in dense transport structures triggers exponential search times and guarantees non-optimal solutions, increasing cost matrices by up to 25% on long-haul routes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Methodology -->
+        <section class="slide" id="slide-5">
+            <div class="grid-2">
+                <div class="slide-content fade-up-1">
+                    <h2>Methodology</h2>
+                    <h3 style="margin-top: 10px;">The Graph Network Model</h3>
+                    <p>We built a Directed Graph representing the highway infrastructure connecting urban hubs across the Netherlands.</p>
+                    
+                    <div class="methodology-metrics">
+                        <div class="metric-badge fade-up-2">
+                            <div class="metric-num">15</div>
+                            <div class="metric-lbl">Urban Nodes</div>
+                        </div>
+                        <div class="metric-badge fade-up-2">
+                            <div class="metric-num">20</div>
+                            <div class="metric-lbl">Highway Edges</div>
+                        </div>
+                        <div class="metric-badge fade-up-3">
+                            <div class="metric-num">KM</div>
+                            <div class="metric-lbl">Edge Weights</div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card fade-up-3" style="margin-top: 25px; padding: 20px;">
+                        <h4 style="font-family: var(--font-heading); color: var(--color-cyan); margin-bottom: 8px;">Dijkstra Path Relaxation</h4>
+                        <p style="margin-bottom: 0; font-size: 0.95rem;">Systematically relaxes connections starting from the source, tracking tentative minimum weights in a priority array until the destination node is finalized.</p>
+                    </div>
+                </div>
+                <div class="slide-visual fade-up-2">
+                    <img src="assets/map_infrastructure.png" alt="Infrastructure Network Map">
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Software Implementation -->
+        <section class="slide" id="slide-6">
+            <div class="grid-2">
+                <div class="slide-content fade-up-1">
+                    <h2>Software Implementation</h2>
+                    
+                    <div class="impl-cards">
+                        <div class="impl-card fade-up-2">
+                            <h3>infrastructure.py <span>Compiler</span></h3>
+                            <p style="font-size: 0.9rem; margin-top: 8px; margin-bottom: 0;">
+                                Maps geographical city coordinate structures, connects directly to OSRM APIs to download authentic highway geometries, and compiles the physical topology to a <code>.graphml</code> layout database.
+                            </p>
+                        </div>
+                        <div class="impl-card fade-up-3">
+                            <h3>solver.py <span>Path Solver</span></h3>
+                            <p style="font-size: 0.9rem; margin-top: 8px; margin-bottom: 0;">
+                                Features our custom Dijkstra loop executing weight updates and path back-pointer extraction. Integrates with <code>contextily</code> dark satellite base maps for rich graphics rendering.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slide-visual fade-up-2" style="height: 480px;">
+                    <div class="code-window" style="width: 100%;">
+                        <div class="code-header">
+                            <div class="dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="code-title" id="code-file-name">solver.py (Dijkstra Core)</span>
+                        </div>
+                        <div class="code-body">
+                            <pre><code id="code-snippet-box"><span class="comment"># Manual Dijkstra Implementation Loop</span>
+<span class="keyword">def</span> <span class="function">get_shortest_path_manual</span>(graph, start, end):
+    distances = {node: <span class="function">float</span>(<span class="string">'inf'</span>) <span class="keyword">for</span> node <span class="keyword">in</span> graph.nodes()}
+    distances[start] = <span class="number">0</span>
+    previous = {node: <span class="keyword">None</span> <span class="keyword">for</span> node <span class="keyword">in</span> graph.nodes()}
+    unvisited = <span class="function">list</span>(graph.nodes())
+    
+    <span class="keyword">while</span> unvisited:
+        <span class="comment"># Select node with minimum tentative distance</span>
+        current = <span class="function">min</span>(unvisited, key=<span class="keyword">lambda</span> n: distances[n])
+        <span class="keyword">if</span> distances[current] == <span class="function">float</span>(<span class="string">'inf'</span>): <span class="keyword">break</span>
+        <span class="keyword">if</span> current == end: <span class="keyword">break</span>
+            
+        unvisited.remove(current)
+        
+        <span class="keyword">for</span> neighbor <span class="keyword">in</span> graph.neighbors(current):
+            weight = graph[current][neighbor][<span class="string">'weight'</span>]
+            new_dist = distances[current] + weight
+            <span class="keyword">if</span> new_dist < distances[neighbor]:
+                distances[neighbor] = new_dist
+                previous[neighbor] = current
+                
+    <span class="keyword">return</span> path, distance</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Results -->
+        <section class="slide" id="slide-7">
+            <div class="grid-2">
+                <div class="slide-content fade-up-1">
+                    <h2>Results & Optimal Path</h2>
+                    
+                    <div class="results-info-container">
+                        <div class="route-summary">
+                            <div class="route-meta-row">
+                                <div class="route-meta-box highlight">
+                                    <span>Route Origin</span>
+                                    <strong>Rotterdam</strong>
+                                </div>
+                                <div class="route-meta-box highlight">
+                                    <span>Route Destination</span>
+                                    <strong>Groningen</strong>
+                                </div>
+                            </div>
+                            <div class="route-meta-row">
+                                <div class="route-meta-box">
+                                    <span>Optimized Distance</span>
+                                    <strong style="color: var(--color-amber);">299 KM</strong>
+                                </div>
+                                <div class="route-meta-box">
+                                    <span>Dijkstra Nodes Visited</span>
+                                    <strong>7 Hubs</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="route-path-container fade-up-2">
+                            <div class="route-path-title">Final Navigation Sequence</div>
+                            <div class="route-steps-flow">
+                                <span class="step-node active-origin">Rotterdam</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node">The Hague</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node">Amsterdam</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node">Almere</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node">Zwolle</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node">Meppel</span>
+                                <span class="step-arrow">➔</span>
+                                <span class="step-node active-dest">Groningen</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-visual fade-up-2">
+                    <img src="assets/shortest_path.png" alt="Shortest Path Solution Map">
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Step-by-Step Execution Simulator -->
+        <section class="slide" id="slide-8">
+            <h2 class="fade-up-1">Dijkstra Step-by-Step Execution</h2>
+            <p class="fade-up-1" style="margin-bottom: 20px;">Interactive walk-through of the relaxation loop from Rotterdam to Groningen.</p>
+            
+            <div class="dijkstra-simulator">
+                <div class="sim-control-panel fade-up-2">
+                    <div class="sim-steps-scroller" id="sim-steps-list">
+                        <!-- Step Items populated by JavaScript -->
+                    </div>
+                    
+                    <div class="sim-action-buttons">
+                        <button class="sim-btn" id="sim-prev-btn" disabled>
+                            ◀ Prev Step
+                        </button>
+                        <button class="sim-btn" id="sim-next-btn">
+                            Next Step ▶
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="sim-visualization-panel glass-card fade-up-3">
+                    <div class="network-table-title">Dijkstra Tentative Distances Array</div>
+                    <div class="network-status-grid" id="sim-nodes-grid">
+                        <!-- Node status cards populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Conclusion -->
+        <section class="slide" id="slide-9">
+            <div class="slide-content" style="max-width: 900px; margin: 0 auto;">
+                <h2 class="fade-up-1">Conclusion</h2>
+                <ul style="margin-top: 20px;">
+                    <li class="fade-up-2" style="margin-bottom: 22px; font-size: 1.2rem;"><strong>Academic Synthesis:</strong> Effectively demonstrated how discrete mathematical models resolve complex engineering problems in ICT.</li>
+                    <li class="fade-up-3" style="margin-bottom: 22px; font-size: 1.2rem;"><strong>Theory to Application:</strong> Consolidated understanding of nodes (hubs), weighted edges (distances), graph connectivity, and degree metrics.</li>
+                    <li class="fade-up-4" style="margin-bottom: 22px; font-size: 1.2rem;"><strong>Efficiency Benefits:</strong> Dijkstra algorithm design directly optimizes logistics, reducing travel time, fuel burn, and fleet overhead.</li>
+                    <li class="fade-up-4" style="margin-bottom: 22px; font-size: 1.2rem;"><strong>Future Integrations:</strong> Bridges the gap between discrete structural theories and practical global navigation systems (like GPS or OSRM).</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Controls -->
+    <footer>
+        <div class="footer-nav">
+            <button class="nav-btn" id="prev-slide-btn" title="Previous Slide (Left Arrow)">⏴</button>
+            <button class="nav-btn" id="next-slide-btn" title="Next Slide (Right Arrow/Space)">⏵</button>
+            <button class="fullscreen-btn" id="fullscreen-toggle" title="Toggle Fullscreen (F)">⛶</button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="presentation-progress"></div>
+        </div>
+        
+        <div class="slide-counter">
+            Slide <span id="current-slide-num">1</span> of <span id="total-slides-num">9</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
