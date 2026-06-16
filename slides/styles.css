@@ -383,50 +383,43 @@ li::before {
 
 /* Members Grid */
 .members-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-height: 520px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-/* Scrollbar for members panel */
-.members-container::-webkit-scrollbar {
-    width: 6px;
-}
-.members-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 3px;
-}
-.members-container::-webkit-scrollbar-thumb {
-    background: rgba(0, 229, 255, 0.2);
-    border-radius: 3px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
 
 .member-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
+    text-align: center;
+    gap: 10px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    padding: 12px 18px;
+    padding: 14px 10px;
     transition: all 0.3s ease;
+}
+
+.member-card:last-child {
+    grid-column: span 2;
+    max-width: 60%;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .member-card:hover {
     background: rgba(0, 229, 255, 0.04);
     border-color: rgba(0, 229, 255, 0.2);
-    transform: translateX(5px);
+    transform: translateY(-3px);
 }
 
 .member-img-wrapper {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid rgba(0, 229, 255, 0.3);
+    border: 2.5px solid rgba(0, 229, 255, 0.3);
     flex-shrink: 0;
 }
 
@@ -434,17 +427,19 @@ li::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
 }
 
 .member-meta h4 {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--color-text-main);
+    line-height: 1.2;
 }
 
 .member-meta span {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--color-cyan);
     font-weight: 500;
 }
@@ -743,21 +738,52 @@ li::before {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 25px;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
 }
 
 .sim-control-panel {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    justify-content: space-between;
+    gap: 15px;
+    justify-content: flex-start;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Step Progress Bar */
+.sim-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.sim-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-cyan), var(--color-green));
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.sim-progress-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-align: right;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .sim-steps-scroller {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-height: 320px;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 8px;
 }
@@ -773,12 +799,12 @@ li::before {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 8px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
 }
 
 .sim-step-item:hover {
@@ -786,32 +812,46 @@ li::before {
 }
 
 .sim-step-item.active {
-    background: rgba(0, 229, 255, 0.05);
+    background: rgba(0, 229, 255, 0.08);
     border-color: var(--color-cyan);
+    box-shadow: inset 3px 0 0 var(--color-cyan);
+}
+
+.sim-step-item.completed {
+    border-color: rgba(0, 255, 136, 0.15);
 }
 
 .sim-step-num {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: rgba(255,255,255,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: all 0.35s ease;
 }
 
 .sim-step-item.active .sim-step-num {
     background: var(--color-cyan);
     color: var(--bg-dark);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.sim-step-item.completed .sim-step-num {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--color-green);
 }
 
 .sim-step-desc {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
     line-height: 1.3;
+    transition: color 0.3s ease;
 }
 
 .sim-step-item.active .sim-step-desc {
@@ -820,14 +860,14 @@ li::before {
 
 .sim-action-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 .sim-btn {
     background: var(--bg-dark);
     border: 1px solid var(--color-cyan);
     color: var(--color-cyan);
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
     font-family: var(--font-heading);
@@ -838,6 +878,30 @@ li::before {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    font-size: 0.85rem;
+}
+
+.sim-btn.sim-btn-play {
+    flex: 0.6;
+    border-color: var(--color-green);
+    color: var(--color-green);
+}
+
+.sim-btn.sim-btn-play:hover {
+    background: var(--color-green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.sim-btn.sim-btn-play.playing {
+    border-color: var(--color-amber);
+    color: var(--color-amber);
+}
+
+.sim-btn.sim-btn-play.playing:hover {
+    background: var(--color-amber);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
 .sim-btn:hover {
@@ -867,6 +931,8 @@ li::before {
     flex-direction: column;
     gap: 15px;
     position: relative;
+    height: 100%;
+    min-height: 0;
 }
 
 .network-table-title {
@@ -877,14 +943,43 @@ li::before {
     color: var(--color-text-muted);
     border-bottom: 1px solid rgba(255,255,255,0.05);
     padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.legend-strip {
+    display: flex;
+    gap: 14px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.legend-dot.dot-current { background: var(--color-cyan); box-shadow: 0 0 5px var(--color-cyan); }
+.legend-dot.dot-visited { background: var(--color-green); }
+.legend-dot.dot-updated { background: var(--color-amber); }
+.legend-dot.dot-unvisited { background: rgba(255,255,255,0.15); }
 
 .network-status-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px;
     overflow-y: auto;
-    max-height: 320px;
+    flex: 1;
+    min-height: 0;
+    align-content: start;
 }
 
 .network-status-grid::-webkit-scrollbar {
@@ -898,22 +993,159 @@ li::before {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px 10px 8px 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    transition: all 0.3s ease;
+    gap: 3px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid transparent;
+}
+
+/* Status indicator icon in top-right */
+.node-status-icon {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    opacity: 0.7;
 }
 
 .node-status-card.visited {
-    border-color: rgba(0, 255, 136, 0.25);
-    background: rgba(0, 255, 136, 0.02);
+    border-color: rgba(0, 255, 136, 0.3);
+    border-left-color: var(--color-green);
+    background: rgba(0, 255, 136, 0.03);
+}
+
+.node-status-card.visited .node-status-icon {
+    color: var(--color-green);
 }
 
 .node-status-card.current {
     border-color: var(--color-cyan);
-    background: rgba(0, 229, 255, 0.05);
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+    border-left-color: var(--color-cyan);
+    background: rgba(0, 229, 255, 0.07);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 229, 255, 0.03);
+    animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.node-status-card.current .node-status-icon {
+    color: var(--color-cyan);
+    animation: iconPulse 1s ease-in-out infinite;
+}
+
+/* Flash effect for nodes whose distance was just updated */
+.node-status-card.updated {
+    border-color: rgba(245, 158, 11, 0.5);
+    border-left-color: var(--color-amber);
+    background: rgba(245, 158, 11, 0.08);
+    animation: distanceFlash 0.8s ease-out;
+}
+
+.node-status-card.updated .node-distance {
+    color: var(--color-amber) !important;
+    font-weight: 700;
+}
+
+.node-status-card.updated .node-status-icon {
+    color: var(--color-amber);
+}
+
+/* Distance change badge (old → new) */
+.dist-change-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    color: var(--color-amber);
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 4px;
+    font-weight: 600;
+    animation: badgePop 0.4s ease-out;
+}
+
+@keyframes badgePop {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Golden optimal path highlight on final step */
+.node-status-card.on-path {
+    border-color: rgba(255, 215, 0, 0.5);
+    border-left-color: #ffd700;
+    background: rgba(255, 215, 0, 0.06);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+}
+
+.node-status-card.on-path .node-name {
+    color: #ffd700;
+}
+
+.node-status-card.on-path .node-status-icon {
+    color: #ffd700;
+    font-size: 0.75rem;
+    opacity: 1;
+}
+
+.node-status-card.on-path .node-distance {
+    color: #ffd700;
+    font-weight: 700;
+}
+
+/* Route found completion badge */
+.sim-route-found {
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(0, 229, 255, 0.05));
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 10px;
+    animation: routeReveal 0.6s ease-out;
+}
+
+.sim-route-found h4 {
+    font-family: var(--font-heading);
+    color: #ffd700;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.sim-route-found p {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+@keyframes routeReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered entrance for cards */
+.node-status-card.animate-in {
+    animation: cardPop 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 229, 255, 0.15), inset 0 0 15px rgba(0, 229, 255, 0.02); }
+    50% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.3), inset 0 0 25px rgba(0, 229, 255, 0.05); }
+}
+
+@keyframes iconPulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes distanceFlash {
+    0% { background: rgba(245, 158, 11, 0.2); }
+    100% { background: rgba(245, 158, 11, 0.08); }
+}
+
+@keyframes cardPop {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .node-name {
@@ -925,6 +1157,7 @@ li::before {
 .node-distance {
     font-size: 0.75rem;
     color: var(--color-text-muted);
+    transition: color 0.3s ease;
 }
 
 .node-status-card.visited .node-distance {
@@ -932,6 +1165,7 @@ li::before {
 }
 .node-status-card.current .node-distance {
     color: var(--color-cyan);
+    font-weight: 600;
 }
 
 .node-parent {

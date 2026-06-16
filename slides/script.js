@@ -31,6 +31,9 @@ function showSlide(idx) {
 
     // Reset step-by-step simulator if leaving Slide 8
     if (idx !== 7) { // Slide 8 is index 7 (0-based)
+        if (typeof stopAutoplay === 'function') {
+            stopAutoplay();
+        }
         resetSimulator();
     }
 }
@@ -226,6 +229,7 @@ if (codeHeader) {
 const simStepsList = document.getElementById('sim-steps-list');
 const simNodesGrid = document.getElementById('sim-nodes-grid');
 const simPrevBtn = document.getElementById('sim-prev-btn');
+const simPlayBtn = document.getElementById('sim-play-btn');
 const simNextBtn = document.getElementById('sim-next-btn');
 
 const nodesList = [
@@ -367,44 +371,145 @@ const dijkstraSteps = [
 ];
 
 let currentSimStep = 0;
+let playInterval = null;
+
+function stopAutoplay() {
+    if (playInterval) {
+        clearInterval(playInterval);
+        playInterval = null;
+        if (simPlayBtn) {
+            simPlayBtn.innerHTML = '▶ Play';
+            simPlayBtn.classList.remove('playing');
+        }
+    }
+}
+
+function startAutoplay() {
+    if (playInterval) return;
+    
+    // If we're already at the end when play is clicked, reset to 0 first
+    if (currentSimStep === dijkstraSteps.length - 1) {
+        renderSimulatorStep(0);
+    } else {
+        // Advance to the next step immediately to eliminate the delay
+        renderSimulatorStep(currentSimStep + 1);
+        if (currentSimStep === dijkstraSteps.length - 1) {
+            return; // Already reached the end, no need to start interval
+        }
+    }
+    
+    if (simPlayBtn) {
+        simPlayBtn.innerHTML = '⏸ Pause';
+        simPlayBtn.classList.add('playing');
+    }
+    
+    playInterval = setInterval(() => {
+        if (currentSimStep < dijkstraSteps.length - 1) {
+            renderSimulatorStep(currentSimStep + 1);
+            // Stop when we reach the end
+            if (currentSimStep === dijkstraSteps.length - 1) {
+                stopAutoplay();
+            }
+        } else {
+            stopAutoplay();
+        }
+    }, 2000);
+}
 
 function renderSimulatorStep(stepIdx) {
     const stepData = dijkstraSteps[stepIdx];
+    const prevStepData = stepIdx > 0 ? dijkstraSteps[stepIdx - 1] : null;
     
-    // Update active class in list
+    // Update active/completed class in step list
     const stepItems = document.querySelectorAll('.sim-step-item');
     stepItems.forEach((item, idx) => {
+        item.classList.remove('active');
+        item.classList.remove('completed');
         if (idx === stepIdx) {
             item.classList.add('active');
             item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-            item.classList.remove('active');
+        } else if (idx < stepIdx) {
+            item.classList.add('completed');
         }
     });
     
-    // Update nodes grid status
+    // Update progress bar
+    const progressFill = document.getElementById('sim-progress-fill');
+    const progressLabel = document.getElementById('sim-progress-label');
+    if (progressFill && progressLabel) {
+        const pct = ((stepIdx) / (dijkstraSteps.length - 1)) * 100;
+        progressFill.style.width = `${pct}%`;
+        progressLabel.textContent = `Step ${stepIdx} / ${dijkstraSteps.length - 1}`;
+    }
+    
+    // Update nodes grid status with animations
     simNodesGrid.innerHTML = '';
-    nodesList.forEach(node => {
+    
+    const optimalPath = ["Rotterdam", "The Hague", "Amsterdam", "Almere", "Zwolle", "Meppel", "Groningen"];
+    const isFinalStep = stepIdx === dijkstraSteps.length - 1;
+    
+    nodesList.forEach((node, i) => {
         const isCurrent = stepData.current === node;
         const isVisited = stepData.visited.includes(node);
         const dist = stepData.distances[node] !== undefined ? stepData.distances[node] : Infinity;
         const parent = stepData.parents[node] || 'None';
+        const isOnOptimalPath = isFinalStep && optimalPath.includes(node);
+        
+        // Detect if distance was just updated this step
+        let wasUpdated = false;
+        let changeBadgeHtml = '';
+        if (prevStepData) {
+            const prevDist = prevStepData.distances[node] !== undefined ? prevStepData.distances[node] : Infinity;
+            if (dist !== prevDist && dist !== Infinity) {
+                wasUpdated = true;
+                const prevDistLabel = prevDist === Infinity ? '∞' : prevDist + ' KM';
+                changeBadgeHtml = `<span class="dist-change-badge">${prevDistLabel} → ${dist} KM</span>`;
+            }
+        }
         
         let statusClass = '';
-        if (isCurrent) statusClass = 'current';
-        else if (isVisited) statusClass = 'visited';
+        let statusIcon = '○';  // unvisited
+        
+        if (isOnOptimalPath) {
+            statusClass = 'on-path';
+            statusIcon = '★';
+        } else if (isCurrent) {
+            statusClass = 'current';
+            statusIcon = '◉';
+        } else if (wasUpdated) {
+            statusClass = 'updated';
+            statusIcon = '↓';
+        } else if (isVisited) {
+            statusClass = 'visited';
+            statusIcon = '✓';
+        }
         
         const card = document.createElement('div');
-        card.className = `node-status-card ${statusClass}`;
+        card.className = `node-status-card ${statusClass} animate-in`;
+        card.style.animationDelay = `${i * 20}ms`;
         
         card.innerHTML = `
+            <span class="node-status-icon">${statusIcon}</span>
             <div class="node-name">${node}</div>
-            <div class="node-distance">Distance: ${dist === Infinity ? '∞' : dist + ' KM'}</div>
+            <div class="node-distance">Distance: ${dist === Infinity ? '∞' : dist + ' KM'}${changeBadgeHtml}</div>
             <div class="node-parent">Parent: ${parent}</div>
         `;
         
         simNodesGrid.appendChild(card);
     });
+    
+    // Add Route Found Completion Banner on Final Step
+    if (isFinalStep) {
+        const routeBanner = document.createElement('div');
+        routeBanner.className = 'sim-route-found';
+        routeBanner.style.gridColumn = '1 / -1';
+        routeBanner.style.marginTop = '15px';
+        routeBanner.innerHTML = `
+            <h4>Shortest Route Established!</h4>
+            <p><strong>Rotterdam</strong> ➔ <strong>The Hague</strong> ➔ <strong>Amsterdam</strong> ➔ <strong>Almere</strong> ➔ <strong>Zwolle</strong> ➔ <strong>Meppel</strong> ➔ <strong>Groningen</strong> (Total: 299 KM)</p>
+        `;
+        simNodesGrid.appendChild(routeBanner);
+    }
     
     // Button states
     simPrevBtn.disabled = stepIdx === 0;
@@ -413,6 +518,31 @@ function renderSimulatorStep(stepIdx) {
 }
 
 function initSimulator() {
+    // Add progress bar before scroller
+    const controlPanel = document.querySelector('.sim-control-panel');
+    if (controlPanel && !document.getElementById('sim-progress-fill')) {
+        const progressWrapper = document.createElement('div');
+        progressWrapper.innerHTML = `
+            <div class="sim-progress-label" id="sim-progress-label">Step 0 / ${dijkstraSteps.length - 1}</div>
+            <div class="sim-progress-bar"><div class="sim-progress-fill" id="sim-progress-fill" style="width: 0%"></div></div>
+        `;
+        controlPanel.insertBefore(progressWrapper, controlPanel.firstChild);
+    }
+    
+    // Add legend to the visualization panel title
+    const titleEl = document.querySelector('.network-table-title');
+    if (titleEl && !titleEl.querySelector('.legend-strip')) {
+        const legend = document.createElement('div');
+        legend.className = 'legend-strip';
+        legend.innerHTML = `
+            <span class="legend-item"><span class="legend-dot dot-current"></span>Current</span>
+            <span class="legend-item"><span class="legend-dot dot-updated"></span>Updated</span>
+            <span class="legend-item"><span class="legend-dot dot-visited"></span>Visited</span>
+            <span class="legend-item"><span class="legend-dot dot-unvisited"></span>Unvisited</span>
+        `;
+        titleEl.appendChild(legend);
+    }
+    
     // Populate the step-by-step description panel
     simStepsList.innerHTML = '';
     dijkstraSteps.forEach((step, idx) => {
@@ -426,6 +556,7 @@ function initSimulator() {
         `;
         
         stepItem.addEventListener('click', () => {
+            stopAutoplay();
             renderSimulatorStep(idx);
         });
         
@@ -437,21 +568,34 @@ function initSimulator() {
 }
 
 function resetSimulator() {
+    stopAutoplay();
     currentSimStep = 0;
     renderSimulatorStep(0);
 }
 
 simPrevBtn.addEventListener('click', () => {
+    stopAutoplay();
     if (currentSimStep > 0) {
         renderSimulatorStep(currentSimStep - 1);
     }
 });
 
 simNextBtn.addEventListener('click', () => {
+    stopAutoplay();
     if (currentSimStep < dijkstraSteps.length - 1) {
         renderSimulatorStep(currentSimStep + 1);
     }
 });
+
+if (simPlayBtn) {
+    simPlayBtn.addEventListener('click', () => {
+        if (playInterval) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    });
+}
 
 // Initialize simulation on load
 document.addEventListener('DOMContentLoaded', () => {
